@@ -25,7 +25,7 @@ const Login = () => {
     })
   }
   const navigate = useNavigate()
-
+{error && <div className="login-error">{error}</div>}
   const handleSubmit = (e) => {
     try {
       e.preventDefault();
@@ -36,7 +36,6 @@ const Login = () => {
     } catch (e) {
       setError(e.message);
     }
-
   }
 
 

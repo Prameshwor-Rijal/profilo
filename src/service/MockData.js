@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom"
 
 
 export const MOCK_USER = {
@@ -107,6 +108,15 @@ let profileData = {
 }
 
 export const mockAPI = {
+
+    logout(){
+        localStorage.clear()
+    },
+
+    isValidToken(){
+        const token  = localStorage.getItem('authToken')
+        return MOCK_USER.authToken === token;
+    },
 
     login(username, password){
         if(MOCK_USER.username===username && MOCK_USER.password===password){
