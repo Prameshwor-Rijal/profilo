@@ -9,6 +9,7 @@ import Input from '../components/common/Input';
 import './Login.css';
 import { login, mockAPI } from '../service/MockData'
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -17,6 +18,7 @@ const Login = () => {
   });
 
   const [error, setError] = useState();
+  const { login } = useAuth();
 
   const handleChange = (e) => {
     setFormData({
@@ -25,18 +27,17 @@ const Login = () => {
     })
   }
   const navigate = useNavigate()
-
+  { error && <div className="login-error">{error}</div> }
   const handleSubmit = (e) => {
     try {
       e.preventDefault();
-      const result = mockAPI.login(formData.username, formData.password)
-      if (result.success) {
+      const res = login(formData.username, formData.password)
+      if (res.success) {
         navigate('/dashboard');
       }
     } catch (e) {
       setError(e.message);
     }
-
   }
 
 

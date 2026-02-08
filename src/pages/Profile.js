@@ -1,8 +1,7 @@
 
-import { useEffect } from 'react';
-import Card from '../components/common/Card'
+import { useEffect, useState } from 'react';
+import Card from '../components/common/Card';
 import { mockAPI } from '../service/MockData';
-import { useState } from 'react';
 import './Profile.css';
 
 function Profile() {
