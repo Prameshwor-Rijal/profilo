@@ -2,42 +2,38 @@
  * Login Page
  * Authentication page for admin access
  */
-import { useState } from "react";
-import Button from "../components/common/Button";
-import Card from "../components/common/Card";
-import Input from "../components/common/Input";
-import "./Login.css";
-import { mockAPI } from "../service/MockData";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import Button from '../components/common/Button';
+import Card from '../components/common/Card';
+import Input from '../components/common/Input';
+import './Login.css';
+import {login, mockAPI} from '../service/MockData'
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    username: "",
-    password: "",
+    username: '',
+    password: ''
   });
-
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
+  
+  const [error, setError] = useState();
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+      [e.target.name]:e.target.value
+    })
+  }
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    try {
-      const result = mockAPI.login(formData.username, formData.password);
-      if (result.success) {
-        navigate("/dashboard");
-      }
-    } catch (err) {
-      setError(err.message || "Login failed");
+    const result = mockAPI.login(formData.username, formData.password)
+    if(result.success){
+      navigate('/dashboard');
     }
-  };
+  }
+
 
   return (
     <div className="login-container">
@@ -48,13 +44,11 @@ const Login = () => {
           <div className="shape shape-3"></div>
         </div>
       </div>
-
       <Card className="login-card">
         <div className="login-header">
           <h1 className="login-title">Profilo</h1>
           <p className="login-subtitle">Admin Login</p>
         </div>
-
         <form onSubmit={handleSubmit} className="login-form">
           <Input
             label="Username"
@@ -75,9 +69,7 @@ const Login = () => {
             required
             autoComplete="current-password"
           />
-
           {error && <div className="login-error">{error}</div>}
-
           <Button
             type="submit"
             variant="primary"
@@ -88,6 +80,11 @@ const Login = () => {
             Login
           </Button>
         </form>
+        {/* <div className="login-info">
+          <p className="login-hint">
+            Demo credentials: <strong>admin</strong> / <strong>admin123</strong>
+          </p>
+        </div> */}
       </Card>
     </div>
   );
