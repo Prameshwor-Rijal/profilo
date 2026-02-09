@@ -1,5 +1,11 @@
 
 
+export const MOCK_USER = {
+    username: 'admin',
+    password: 'admin123',
+    authToken: 'mock-user-token-123456'
+}
+
 let profileData = {
     personalInfo: {
         name: 'Santosh Ghimire',
@@ -9,7 +15,7 @@ let profileData = {
         location: 'Bhaktapur, Nepal',
         bio: 'Passionate developer with 5+ years of experience building scalable web applications. Love coding, teaching, and contributing to open source projects.',
         // profilePicture: 'https://images.unsplash.com/photo-1695927621677-ec96e048dce2?h=400&w=400&fit=crop'
-        profilePicture:'https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?w=500&auto=format&fit=crop'
+        profilePicture: 'https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?w=500&auto=format&fit=crop'
     },
     education: [
         {
@@ -101,6 +107,15 @@ let profileData = {
 }
 
 export const mockAPI = {
+
+    login(username, password){
+        if(MOCK_USER.username===username && MOCK_USER.password===password){
+            localStorage.setItem('authToken', MOCK_USER.authToken);
+            return {success: true, token: MOCK_USER.authToken, user:{username}}
+        }
+        throw new Error("Invalid Credentials.");
+    },
+
     getProfile() {
         return { ...profileData };
     }
